@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "967298819931",
+    "firebase_url": "https://all-in-one-fea38-default-rtdb.firebaseio.com",
+    "project_id": "all-in-one-fea38",
+    "storage_bucket": "all-in-one-fea38.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967298819931:android:37478854d16c585b955c7e",
+        "android_client_info": {
+          "package_name": "com.example.all_in_one"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhBFroXY1u7e4c1_leUSiDsxFoEpuS6g8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
