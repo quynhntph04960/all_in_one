@@ -1,7 +1,8 @@
-import 'package:all_in_one/chat/list_user/list_user_page.dart';
+import 'package:all_in_one/base/extension/build_context_ext.dart';
 import 'package:flutter/material.dart';
 
-import 'chat/firebase_options.dart';
+import 'di/firebase_options.dart';
+import 'presentation/login/login_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,15 +17,45 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final border = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+    );
     return MaterialApp(
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
+        primaryColor: Colors.blue,
+        appBarTheme: const AppBarTheme(
           centerTitle: true,
           backgroundColor: Colors.blue,
           foregroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.white),
+          actionsIconTheme: IconThemeData(color: Colors.white),
+        ),
+        iconTheme: const IconThemeData(color: Colors.black),
+        scaffoldBackgroundColor: Colors.white,
+        inputDecorationTheme: InputDecorationTheme(
+          border: border,
+          errorBorder: border,
+          focusedErrorBorder: border,
+          enabledBorder: border,
+          disabledBorder: border,
+          focusedBorder: border,
+          iconColor: Colors.black,
+          suffixIconColor: Colors.black,
+          prefixIconColor: Colors.black,
+          hintStyle: context.themeDefaultText.copyWith(
+            color: Colors.black.withOpacity(0.5),
+          ),
+          labelStyle: context.themeDefaultText,
+        ),
+        textTheme: TextTheme(
+          titleLarge: context.themeHeaderText,
+          titleMedium: context.themeTitleText,
+          titleSmall: context.themeDefaultText,
+          labelMedium: context.themeSubText,
         ),
       ),
-      home: ListUserPage(),
+      navigatorKey: mainGlobalKey,
+      home: const LoginPage(),
     );
   }
 }

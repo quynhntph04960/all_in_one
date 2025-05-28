@@ -16,8 +16,9 @@ class _ListUserPageState extends State<ListUserPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    final db = FirebaseDatabase.instance.ref().child("chat/list_user");
+    final firebase = FirebaseDatabase.instance.ref();
+    final db = firebase.child("chat/list_user");
+    // final db3 = FirebaseDatabase.instance.ref().child("chat/message").set({});
     db.onValue.listen((event) {
       final snapshot = event.snapshot.value as Map<dynamic, dynamic>;
       snapshot.forEach((key, value) {
@@ -35,7 +36,7 @@ class _ListUserPageState extends State<ListUserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bạn bè"),
+        title: const Text("Người dùng"),
       ),
       body: ListView.builder(
         itemCount: listUsers.length,
