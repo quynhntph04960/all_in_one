@@ -1,5 +1,9 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:all_in_one/base/extension/build_context_ext.dart';
+import 'package:all_in_one/di/di.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'list_user_cubit.dart';
 
 const linkTest = "https://wallpaperaccess.com/full/1925843.jpg";
 
@@ -11,92 +15,94 @@ class ListUserPage extends StatefulWidget {
 }
 
 class _ListUserPageState extends State<ListUserPage> {
-  List<User> listUsers = [];
+  final _cubit = ListUserCubit();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    final firebase = FirebaseDatabase.instance.ref();
-    final db = firebase.child("chat/list_user");
-    // final db3 = FirebaseDatabase.instance.ref().child("chat/message").set({});
-    db.onValue.listen((event) {
-      final snapshot = event.snapshot.value as Map<dynamic, dynamic>;
-      snapshot.forEach((key, value) {
-        listUsers.add(User(
-          idUser: key,
-          name: value['name'],
-          avatar: value['avatar'],
-        ));
-        setState(() {});
-      });
-    });
+    _cubit.initialize();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Người dùng"),
+        title: const Text("Bạn bè"),
       ),
-      body: ListView.builder(
-        itemCount: listUsers.length,
-        itemBuilder: (context, index) {
-          final user = listUsers[index];
-
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: Colors.grey,
-                width: 1,
-              ),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(500),
-                  child: Image.network(
-                    linkTest,
-                    width: 48,
-                    height: 48,
-                    fit: BoxFit.cover,
+      body: BlocBuilder<ListUserCubit, ListFriendState>(
+        bloc: _cubit,
+        builder: (context, state) {
+          return ListView.builder(
+            itemCount: state.listUserSystem?.length ?? 0,
+            itemBuilder: (context, index) {
+              print('_ListFriendPageState.build - $index');
+              final user = state.listUserSystem?[index];
+              // final sIdFriend = accountLogin?.friends?.((e)=> e == user?.idUser);
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1,
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Text(
-                    user.name ?? "",
-                    style: const TextStyle(color: Colors.black),
-                  ),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16,
                 ),
-              ],
-            ),
+                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(500),
+                      child: Image.network(
+                        linkTest,
+                        width: 48,
+                        height: 48,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          user?.account ?? "",
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: !(accountLogin.friends?.contains(user?.idUser) ??
+                          true),
+                      child: InkWell(
+                        onTap: () => _cubit.addFriend(user),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 6,
+                            horizontal: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            "Kết bạn",
+                            style: context.themeTitleText.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
           );
         },
       ),
     );
-  }
-}
-
-class User {
-  String? idUser;
-  String? name;
-  String? avatar;
-
-  User({required this.name, required this.avatar, required this.idUser});
-
-  User.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    avatar = json['avatar'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
-    data['avatar'] = avatar;
-    return data;
   }
 }

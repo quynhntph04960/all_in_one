@@ -8,5 +8,5 @@ class AppConstant {
   static AppConstant get instance => _instance;
 
   /// firebase
-  final listUser = "list_user";
+  final listUser = "users";
 }

@@ -24,11 +24,15 @@ class AppFirebaseService {
     return listData;
   }
 
-  Future<bool> createAccount(UserEntities user, {bool isUpdate = false}) async {
-    await _storage.collection(appConstant.listUser).doc(user.account).set(
-          user.toJson(),
-          SetOptions(merge: isUpdate),
-        );
+  // isUpdate = false thì ghi đề, = true thì cập nhật thêm
+  Future<bool> createAccount(UserEntities user,
+      {bool isUpdate = false, String? keyDoc}) async {
+    final doc = _storage.collection(appConstant.listUser).doc(keyDoc);
+    user.idUser = doc.id;
+    await doc.set(
+      user.toJson(),
+      SetOptions(merge: isUpdate),
+    );
     return true;
   }
 }

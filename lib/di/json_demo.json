@@ -1,13 +1,16 @@
 {
   "chat": {
     "list_user": {
-        "01": {
+        "User1": {
           "name": "QuynhNT",
           "avatar": ""
         },
-        "02": {
+        "User2": {
           "name": "Dev",
-          "avatar": ""
+          "avatar": "",
+          "friend": [
+            "A1", "B2"
+          ]
         }
     }
   }

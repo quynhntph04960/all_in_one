@@ -1,6 +1,7 @@
 import 'package:all_in_one/base/extension/build_context_ext.dart';
 import 'package:flutter/material.dart';
 
+import 'base/widget/loading_dialog.dart';
 import 'di/firebase_options.dart';
 import 'presentation/login/login_page.dart';
 
@@ -55,7 +56,27 @@ class MyApp extends StatelessWidget {
         ),
       ),
       navigatorKey: mainGlobalKey,
-      home: const LoginPage(),
+      home: const MainApp(),
     );
+  }
+}
+
+class MainApp extends StatefulWidget {
+  const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
+  void initState() {
+    loadingDialog = LoadingDialog(mainGlobalKey.currentContext!);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const LoginPage();
   }
 }
