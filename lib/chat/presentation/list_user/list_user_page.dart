@@ -62,6 +62,12 @@ class _ListUserPageState extends State<ListUserPage> {
                         width: 48,
                         height: 48,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(
+                            Icons.error_outline_outlined,
+                            color: Colors.red,
+                          );
+                        },
                       ),
                     ),
                     Expanded(
