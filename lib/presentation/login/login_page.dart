@@ -15,8 +15,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final accountController = TextEditingController();
-  final passwordController = TextEditingController();
+  final accountController = TextEditingController(text: "test");
+  final passwordController = TextEditingController(text: "1");
   final _cubit = LoginCubit();
 
   @override

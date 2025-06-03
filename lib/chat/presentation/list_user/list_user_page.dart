@@ -81,7 +81,7 @@ class _ListUserPageState extends State<ListUserPage> {
                     ),
                     Visibility(
                       visible: !(accountLogin.friends?.contains(user?.idUser) ??
-                          true),
+                          false),
                       child: InkWell(
                         onTap: () => _cubit.addFriend(user),
                         child: Container(
