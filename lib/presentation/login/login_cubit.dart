@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../base/configs_app/app_preference.dart';
 import '../../base/service/client/rest_client.dart';
 import '../../base/utils/common_function.dart';
 import '../../base/utils/common_navigator.dart';
@@ -14,6 +15,10 @@ import '../../base/widget/loading_dialog.dart';
 import '../../base/widget/toast_view.dart';
 import '../../chat/presentation/list_user/list_user_page.dart';
 import '../../di/di.dart';
+import '../../domain/model/login_model.dart';
+import '../demo_page.dart';
+
+String token = "";
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(const LoginState());
@@ -28,13 +33,16 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future login(String account, String password, BuildContext context) async {
     showLoading();
+
     final dataSearch = state.listUserSystem?.firstWhere(
       (e) => e.account == account,
       orElse: () => UserEntities(),
     );
     final bytes = utf8.encode(password); // convert to bytes
     final digest = sha256.convert(bytes); // hash
+
     hideLoading();
+
     if (state.isNotAccount == true) {
       if (isNullOrEmpty(dataSearch?.account)) {
         final user = UserEntities(
@@ -64,6 +72,10 @@ class LoginCubit extends Cubit<LoginState> {
           }
         }
       }
+    }
+
+    if (isNotNullOrEmpty(accountLogin)) {
+      AppPreferences.saveUser(accountLogin);
     }
   }
 
@@ -110,8 +122,16 @@ class LoginCubit extends Cubit<LoginState> {
       },
     );
     print('-----------------------LoginCubit.login-----------------------');
-    print(response.toString());
+    print(response);
+    LoginModel data = LoginModel.fromJson(response.data);
+    token = data.result?.data ?? "";
+    if (context.mounted) {
+      pushAndRemoveUntil(context, const DemoPage());
 
+      return;
+    }
+
+    print('LoginCubit.login2 ---------------- ERROR ------------------------');
     // var headers = {
     //   'Content-Type': 'application/json',
     // };

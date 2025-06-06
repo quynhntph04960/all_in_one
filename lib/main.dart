@@ -1,13 +1,26 @@
+import 'package:all_in_one/base/configs_app/app_preference.dart';
 import 'package:all_in_one/base/extension/build_context_ext.dart';
+import 'package:all_in_one/base/utils/common_function.dart';
+import 'package:all_in_one/di/di.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'base/widget/loading_dialog.dart';
 import 'di/firebase_options.dart';
+import 'domain/entities/user_entities.dart';
+import 'presentation/demo_page.dart';
 import 'presentation/login/login_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FirebaseConfigApp.initializeFirebase();
+
+  await AppPreferences.init();
+  UserEntities? user = await AppPreferences.getUser();
+  print('main ------- ${user?.account}');
+  if (isNotNullOrEmpty(user)) {
+    accountLogin = user!;
+  }
 
   runApp(const MyApp());
 }
@@ -22,6 +35,16 @@ class MyApp extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
     );
     return MaterialApp(
+      locale: Locale("vi"),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // tiếng Anh
+        Locale('vi', ''), // tiếng Việt
+      ],
       theme: ThemeData(
         primaryColor: Colors.blue,
         appBarTheme: const AppBarTheme(
@@ -77,6 +100,9 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
+    if (isNotNullOrEmpty(accountLogin.account)) {
+      return const DemoPage();
+    }
     return const LoginPage();
   }
 }

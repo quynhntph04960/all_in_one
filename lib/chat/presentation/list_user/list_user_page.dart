@@ -8,7 +8,8 @@ import '../../../domain/entities/user_entities.dart';
 import '../chat_room/chat_room_page.dart';
 import 'list_user_cubit.dart';
 
-const linkTest = "https://wallpaperaccess.com/full/1925843.jpg";
+const linkTest =
+    "http://kworktest.kangnam.com.vn/restful/static/img/user-128.png";
 
 class ListUserPage extends StatefulWidget {
   const ListUserPage({super.key});

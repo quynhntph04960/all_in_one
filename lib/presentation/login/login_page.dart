@@ -15,7 +15,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final accountController = TextEditingController(text: "admin");
+  final accountController = TextEditingController(text: "test");
   final passwordController = TextEditingController(text: "1");
   final _cubit = LoginCubit();
 
@@ -101,7 +101,12 @@ class _LoginPageState extends State<LoginPage> {
                     colorBackground: isValidate() ? Colors.grey : null,
                     onClickButton: () async {
                       if (isValidate()) return;
-                      await _cubit.login(
+                      // await _cubit.login(
+                      //   accountController.text,
+                      //   passwordController.text,
+                      //   context,
+                      // );
+                      await _cubit.login2(
                         accountController.text,
                         passwordController.text,
                         context,
