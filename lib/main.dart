@@ -1,3 +1,5 @@
+import 'dart:js' as js;
+
 import 'package:all_in_one/base/configs_app/app_preference.dart';
 import 'package:all_in_one/base/extension/build_context_ext.dart';
 import 'package:all_in_one/base/utils/common_function.dart';
@@ -11,9 +13,21 @@ import 'domain/entities/user_entities.dart';
 import 'presentation/demo_page.dart';
 import 'presentation/login/login_page.dart';
 
+void requestPermission() {
+  js.context.callMethod('Notification', ['requestPermission']).then((result) {
+    if (result == 'granted') {
+      print('Thông báo đã được cấp quyền.');
+    } else {
+      print('Không cấp quyền.');
+    }
+  });
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FirebaseConfigApp.initializeFirebase();
+
+  // requestPermission();
 
   await AppPreferences.init();
   UserEntities? user = await AppPreferences.getUser();

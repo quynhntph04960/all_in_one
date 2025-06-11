@@ -5,6 +5,7 @@ import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 import '../base/utils/common_function.dart';
 import '../base/utils/file_utils.dart';
+import 'login/login_cubit.dart';
 
 class DemoPage extends StatefulWidget {
   const DemoPage({super.key});
@@ -19,7 +20,7 @@ class _DemoPageState extends State<DemoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Demo")),
+      appBar: AppBar(title: Text(resultModel?.data ?? "abcc")),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -117,6 +118,18 @@ class _DemoPageState extends State<DemoPage> {
                   ),
                 ),
               ],
+            ),
+            Image.network(
+              resultModel?.avatar ?? "",
+              width: 200,
+              height: 200,
+              errorBuilder: (_, __, ___) {
+                return Icon(
+                  Icons.error_outline_outlined,
+                  size: 32,
+                  color: Colors.red,
+                );
+              },
             ),
           ],
         ),

@@ -18,7 +18,7 @@ import '../../di/di.dart';
 import '../../domain/model/login_model.dart';
 import '../demo_page.dart';
 
-String token = "";
+Result? resultModel;
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(const LoginState());
@@ -124,7 +124,7 @@ class LoginCubit extends Cubit<LoginState> {
     print('-----------------------LoginCubit.login-----------------------');
     print(response);
     LoginModel data = LoginModel.fromJson(response.data);
-    token = data.result?.data ?? "";
+    resultModel = data.result;
     if (context.mounted) {
       pushAndRemoveUntil(context, const DemoPage());
 

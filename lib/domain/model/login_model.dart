@@ -1,15 +1,11 @@
 class LoginModel {
   String? jsonrpc;
-  dynamic id;
+  Null? id;
   Result? result;
 
   LoginModel({this.jsonrpc, this.id, this.result});
 
-  LoginModel fromJson(dynamic json) {
-    return LoginModel.fromJson(json);
-  }
-
-  LoginModel.fromJson(dynamic json) {
+  LoginModel.fromJson(Map<String, dynamic> json) {
     jsonrpc = json['jsonrpc'];
     id = json['id'];
     result =
@@ -30,13 +26,15 @@ class LoginModel {
 class Result {
   int? stage;
   String? data;
+  String? avatar;
   String? message;
 
-  Result({this.stage, this.data, this.message});
+  Result({this.stage, this.data, this.avatar, this.message});
 
   Result.fromJson(Map<String, dynamic> json) {
     stage = json['stage'];
     data = json['data'];
+    avatar = json['avatar'];
     message = json['message'];
   }
 
@@ -44,6 +42,7 @@ class Result {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['stage'] = this.stage;
     data['data'] = this.data;
+    data['avatar'] = this.avatar;
     data['message'] = this.message;
     return data;
   }
