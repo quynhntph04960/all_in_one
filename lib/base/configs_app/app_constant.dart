@@ -21,4 +21,44 @@ class AppConstant {
   static const int status404 = 404;
   static const int status413 = 413;
   static const int status500 = 500;
+
+  // static const String ddMmYyyyTHhMmSsZ = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+
+  // static const String ddMmYyyyHHmmSs2 = "dd-MM-yyyy HH:mm:ss";
+
+  static const String ddMmYyyyHhMmSs = "dd/MM/yyyy HH:mm:ss";
+
+  static const String ddMmYyyyHHmm = "dd/MM/yyyy HH:mm";
+
+  // static const String ddMmYyyyHHmm2 = "dd-MM-yyyy HH:mm";
+
+  static const String ddMmYyyy = "dd/MM/yyyy";
+
+  // static const String ddMmYyyy2 = "dd-MM-yyyy";
+
+  // static const String yyyyMMdd = "yyyy-MM-dd";
+
+  static const String hhMm = "HH:mm";
+
+  static const String hhMmSs = "HH:mm:ss";
+
+  static const String mmHH = "mm:HH";
+
+  static const String yyyy = "yyyy";
+
+  static const String dd = "dd";
+
+  static const String mM = "MM";
+
+  static const String video = "video";
+  static const String image = "image";
+
+  /// qrCode
+  static const String typeQRCodeImageCustomer = "ImageCustomer";
+  static const String typeQRCodeCRM = "CRM";
+
+  /// id tiện ích home
+  static const String typeHomeIdCrm = "crm";
+  static const String typeHomeIdSellKit = "customer";
+  static const String typeHomeIdContacts = "contact";
 }

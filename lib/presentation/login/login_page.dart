@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child: Text("Đăng nhập1", style: context.themeHeaderText),
+                  child: Text("Đăng nhập 1", style: context.themeHeaderText),
                 ),
                 const SizedBox(height: 16),
                 const SizedBox(height: 16),
