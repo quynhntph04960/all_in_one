@@ -1,0 +1,36 @@
+{
+  "app": {
+    "title": "Zalo mini app flutter 11",
+    "headerTitle": "All in one title 11",
+    "headerColor": "#1843EF",
+    "textColor": "#FFFFFF",
+    "leftButton": "back",
+    "statusBar": "normal",
+    "actionBarHidden": false,
+    "hideAndroidBottomNavigationBar": false,
+    "hideIOSSafeAreaBottom": false,
+    "source": "https://all-in-one-fea38.web.app/"
+  },
+
+  "listCSS": [],
+  "listSyncJS": [
+    "flutter_bootstrap.js",
+    "flutter_service_worker.js",
+    "flutter.js",
+    "main.dart.js"
+  ],
+  "listAsyncJS": [],
+  "template": {
+    "name": "All IN One",
+    "primaryColor": "#006af5",
+    "prefixCurrencySymbol": false,
+    "currencySymbol": "currencySymbol",
+    "headerLogo": "headerLogo"
+  },
+  "pages": {
+    "user": {
+      "title": "Trang người dùng",
+      "fullscreen": true
+    }
+  }
+}

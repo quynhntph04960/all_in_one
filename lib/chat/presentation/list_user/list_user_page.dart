@@ -11,14 +11,14 @@ import 'list_user_cubit.dart';
 const linkTest =
     "http://kworktest.kangnam.com.vn/restful/static/img/user-128.png";
 
-class ListUserPage extends StatefulWidget {
-  const ListUserPage({super.key});
+class UserListPage extends StatefulWidget {
+  const UserListPage({super.key});
 
   @override
-  State<ListUserPage> createState() => _ListUserPageState();
+  State<UserListPage> createState() => _UserListPageState();
 }
 
-class _ListUserPageState extends State<ListUserPage> {
+class _UserListPageState extends State<UserListPage> {
   final _cubit = ListUserCubit();
 
   @override

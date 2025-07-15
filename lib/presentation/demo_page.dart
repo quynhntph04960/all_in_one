@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:all_in_one/base/configs_app/app_constant.dart';
 import 'package:all_in_one/base/utils/common_navigator.dart';
+import 'package:all_in_one/base/widget/input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
@@ -28,7 +29,7 @@ class _DemoPageState extends State<DemoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(resultModel?.data ?? "abcc")),
+      appBar: AppBar(title: Text("demo")),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -92,21 +93,21 @@ class _DemoPageState extends State<DemoPage> {
             Visibility(
               visible: !isNullOrEmpty(filename),
               child: Container(
-                height: 200,
+                height: 100,
                 child: Image.memory(
                   filename ?? Uint8List(0),
-                  width: 200,
-                  height: 200,
+                  width: 100,
+                  height: 100,
                 ),
               ),
             ),
             Text("Ảnh network"),
             Container(
-              height: 200,
+              height: 100,
               child: Image.network(
                 resultModel?.avatar ?? "",
-                width: 200,
-                height: 200,
+                width: 100,
+                height: 100,
                 errorBuilder: (_, __, ___) {
                   return Icon(
                     Icons.error_outline_outlined,
@@ -116,12 +117,56 @@ class _DemoPageState extends State<DemoPage> {
                 },
               ),
             ),
+            Text("Ảnh svg"),
+            // Container(
+            //   height: 100,
+            //   child: SvgPicture.asset(
+            //     "assets/svg/native.svg",
+            //     semanticsLabel: 'Dart Logo',
+            //   ),
+            // ),
+            Text("Ảnh assets1 14-07-2025 7"),
+            Container(
+              color: Colors.blue,
+              width: 100,
+              height: 100,
+              alignment: Alignment.center,
+              child: Image.asset(
+                "/assets/anh/voucher.png",
+                errorBuilder: (_, __, ___) {
+                  return Container(
+                    color: Colors.green,
+                    width: 90,
+                    height: 90,
+                  );
+                },
+              ),
+            ),
+            Container(
+              color: Colors.red,
+              width: 100,
+              height: 100,
+              alignment: Alignment.center,
+              child: Image.asset(
+                "/anh/voucher_coupon.png",
+                errorBuilder: (_, __, ___) {
+                  return Container(
+                    color: Colors.orange,
+                    width: 90,
+                    height: 90,
+                  );
+                },
+              ),
+            ),
             ButtonWidget.basic(
               title: "Firebase",
               onClickButton: () async {
-                pushPage(context, ListUserPage());
+                Navigator.pushNamed(context, '/user');
+                return;
+                pushPage(context, UserListPage());
               },
-            )
+            ),
+            InputWidget(),
           ],
         ),
       ),

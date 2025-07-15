@@ -1,37 +1,29 @@
-import 'dart:js' as js;
-
 import 'package:all_in_one/base/configs_app/app_preference.dart';
 import 'package:all_in_one/base/extension/build_context_ext.dart';
 import 'package:all_in_one/base/utils/common_function.dart';
 import 'package:all_in_one/di/di.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'base/widget/loading_dialog.dart';
+import 'chat/presentation/list_user/list_user_page.dart';
 import 'di/firebase_options.dart';
 import 'domain/entities/user_entities.dart';
 import 'presentation/demo_page.dart';
 import 'presentation/login/login_page.dart';
 
-void requestPermission() {
-  js.context.callMethod('Notification', ['requestPermission']).then((result) {
-    if (result == 'granted') {
-      print('Thông báo đã được cấp quyền.');
-    } else {
-      print('Không cấp quyền.');
-    }
-  });
+void debugAssetList() async {
+  final manifestContent = await rootBundle.loadString('AssetManifest.json');
+  print('All assets: $manifestContent');
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FirebaseConfigApp.initializeFirebase();
 
-  // requestPermission();
-
   await AppPreferences.init();
   UserEntities? user = await AppPreferences.getUser();
-  print('main ------- ${user?.account}');
   if (isNotNullOrEmpty(user)) {
     accountLogin = user!;
   }
@@ -94,6 +86,9 @@ class MyApp extends StatelessWidget {
       ),
       navigatorKey: mainGlobalKey,
       home: const MainApp(),
+      routes: {
+        '/user': (context) => UserListPage(),
+      },
     );
   }
 }
@@ -110,6 +105,8 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     loadingDialog = LoadingDialog(mainGlobalKey.currentContext!);
     super.initState();
+
+    debugAssetList();
   }
 
   @override

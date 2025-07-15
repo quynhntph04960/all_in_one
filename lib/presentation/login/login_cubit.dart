@@ -53,7 +53,7 @@ class LoginCubit extends Cubit<LoginState> {
         showSuccessToast("Đăng ký tài khoản thành công");
         if (context.mounted) {
           accountLogin = accountLogin.copyWithObject(data: user);
-          pushAndRemoveUntil(context, const ListUserPage());
+          pushAndRemoveUntil(context, const UserListPage());
         }
       } else {
         showErrorToast(
@@ -68,7 +68,7 @@ class LoginCubit extends Cubit<LoginState> {
         } else {
           accountLogin = accountLogin.copyWithObject(data: dataSearch!);
           if (context.mounted) {
-            pushAndRemoveUntil(context, const ListUserPage());
+            pushAndRemoveUntil(context, const UserListPage());
           }
         }
       }
@@ -113,25 +113,32 @@ class LoginCubit extends Cubit<LoginState> {
     // } else {
     //   print(response.reasonPhrase);
     // }
+    try {
+      final response = await RestClient.instance.post(
+        "/api/test/v1/auth/login",
+        {
+          "login": account,
+          "password": password,
+        },
+      );
+      print('-----------------------LoginCubit.login-----------------------');
+      print(response);
+      LoginModel data = LoginModel.fromJson(response.data);
+      resultModel = data.result;
+      if (context.mounted) {
+        pushAndRemoveUntil(context, const DemoPage());
 
-    final response = await RestClient.instance.post(
-      "/api/test/v1/auth/login",
-      {
-        "login": account,
-        "password": password,
-      },
-    );
-    print('-----------------------LoginCubit.login-----------------------');
-    print(response);
-    LoginModel data = LoginModel.fromJson(response.data);
-    resultModel = data.result;
-    if (context.mounted) {
-      pushAndRemoveUntil(context, const DemoPage());
+        return;
+      }
 
-      return;
+      print(
+          'LoginCubit.login2 ---------------- ERROR ------------------------');
+    } on Exception catch (e) {
+      print("throwing new error");
+      showErrorToast(e.toString());
+      throw Exception("Error on server");
     }
 
-    print('LoginCubit.login2 ---------------- ERROR ------------------------');
     // var headers = {
     //   'Content-Type': 'application/json',
     // };

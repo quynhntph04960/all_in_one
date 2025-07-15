@@ -2,6 +2,7 @@ import 'package:all_in_one/base/extension/build_context_ext.dart';
 import 'package:all_in_one/base/utils/common_function.dart';
 import 'package:all_in_one/base/widget/button_widget.dart';
 import 'package:all_in_one/base/widget/input_widget.dart';
+import 'package:all_in_one/base/widget/toast_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,7 +48,8 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child: Text("Đăng nhập 1", style: context.themeHeaderText),
+                  child: Text("Login all platform",
+                      style: context.themeHeaderText),
                 ),
                 const SizedBox(height: 16),
                 const SizedBox(height: 16),
@@ -100,7 +102,10 @@ class _LoginPageState extends State<LoginPage> {
                     title: "Đăng nhập",
                     colorBackground: isValidate() ? Colors.grey : null,
                     onClickButton: () async {
-                      if (isValidate()) return;
+                      if (isValidate()) {
+                        showErrorToast("Chuwa ddur kieenj ddeer ddangw nhaapj");
+                        return;
+                      }
                       // await _cubit.login(
                       //   accountController.text,
                       //   passwordController.text,
