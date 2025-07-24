@@ -3,7 +3,6 @@ import 'package:all_in_one/base/extension/build_context_ext.dart';
 import 'package:all_in_one/base/utils/common_function.dart';
 import 'package:all_in_one/di/di.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'base/widget/loading_dialog.dart';
@@ -11,12 +10,9 @@ import 'chat/presentation/list_user/list_user_page.dart';
 import 'di/firebase_options.dart';
 import 'domain/entities/user_entities.dart';
 import 'presentation/demo_page.dart';
+import 'presentation/flappy_bird_page.dart';
 import 'presentation/login/login_page.dart';
-
-void debugAssetList() async {
-  final manifestContent = await rootBundle.loadString('AssetManifest.json');
-  print('All assets: $manifestContent');
-}
+import 'presentation/move_widget_in_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -88,6 +84,7 @@ class MyApp extends StatelessWidget {
       home: const MainApp(),
       routes: {
         '/user': (context) => UserListPage(),
+        '/movePage': (context) => SignTextDraggablePage(),
       },
     );
   }
@@ -105,12 +102,11 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     loadingDialog = LoadingDialog(mainGlobalKey.currentContext!);
     super.initState();
-
-    debugAssetList();
   }
 
   @override
   Widget build(BuildContext context) {
+    return const FlappyBirdPage();
     if (isNotNullOrEmpty(accountLogin.account)) {
       return const DemoPage();
     }

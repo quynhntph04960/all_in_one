@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:all_in_one/base/configs_app/app_constant.dart';
 import 'package:all_in_one/base/utils/common_navigator.dart';
-import 'package:all_in_one/base/widget/input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
@@ -34,18 +33,16 @@ class _DemoPageState extends State<DemoPage> {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
+            DropDownWidget(
+              onTap: () async {
+                final result = await FileUtils.selectFilePicker();
+                filename = result![0].bytes;
+                setState(() {});
+              },
+              labelText: "Selected Image",
+            ),
             Row(
               children: [
-                Expanded(
-                  child: DropDownWidget(
-                    onTap: () async {
-                      final result = await FileUtils.selectFilePicker();
-                      filename = result![0].bytes;
-                      setState(() {});
-                    },
-                    labelText: "Selected Image",
-                  ),
-                ),
                 Expanded(
                   child: DropDownWidget(
                     onTap: () async {
@@ -125,30 +122,14 @@ class _DemoPageState extends State<DemoPage> {
             //     semanticsLabel: 'Dart Logo',
             //   ),
             // ),
-            Text("Ảnh assets1 14-07-2025 7"),
-            Container(
-              color: Colors.blue,
-              width: 100,
-              height: 100,
-              alignment: Alignment.center,
-              child: Image.asset(
-                "/assets/anh/voucher.png",
-                errorBuilder: (_, __, ___) {
-                  return Container(
-                    color: Colors.green,
-                    width: 90,
-                    height: 90,
-                  );
-                },
-              ),
-            ),
+            Text("Ảnh assets1"),
             Container(
               color: Colors.red,
               width: 100,
               height: 100,
               alignment: Alignment.center,
               child: Image.asset(
-                "/anh/voucher_coupon.png",
+                "anh/voucher_coupon.png",
                 errorBuilder: (_, __, ___) {
                   return Container(
                     color: Colors.orange,
@@ -166,7 +147,14 @@ class _DemoPageState extends State<DemoPage> {
                 pushPage(context, UserListPage());
               },
             ),
-            InputWidget(),
+            ButtonWidget.basic(
+              title: "Move Page",
+              onClickButton: () async {
+                Navigator.pushNamed(context, '/movePage');
+                return;
+                pushPage(context, UserListPage());
+              },
+            ),
           ],
         ),
       ),
